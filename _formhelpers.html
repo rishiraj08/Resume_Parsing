@@ -1,0 +1,49 @@
+{% macro render_field(field) %}
+    {{ field.label }}
+  {% if field.errors %}
+  <dd>{{ field(class='is-invalid form-control', **kwargs )|safe }}
+        {% for error in field.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+  {% else %}
+  <dd>{{ field(class='form-control', **kwargs)|safe }}    
+  {% endif %}
+  </dd>
+{% endmacro %}
+
+
+{% macro render_field_radio_inline(field) %}
+  <div class="form-row border border-light rounded mx-0">
+    <legend class="col-form-label col-4 ml-2 mt-1 align-text-middle">{{ field.label }}</legend>
+      {% for subfield in field %}
+        <div class="form-check form-check-inline ml-2">
+          <input class="form-check-input align-middle pt-1" type="radio" name={{ subfield.name }} id={{ subfield.id }} value={{ subfield.data }}>
+          <label class="form-check-label align-middle pt-1" for={{ subfield.id }}>{{ subfield.label }}</label>
+        </div>
+      {% endfor %}
+  </div>
+{% endmacro %}
+
+
+{% macro render_field_radio(field) %}
+<div class="border border-light rounded">
+    <p class="form-label px-2 mt-1 align-text-middle">{{ field.label }}</p>
+      {% for subfield in field %}
+        <div class="form-check ml-3">
+          <input class="form-check-input" type="radio" name={{ subfield.name }} id={{ subfield.id }} value={{ subfield.data }}>
+          <label class="form-check-label" for={{ subfield.id }}>{{ subfield.label }}</label>
+        </div>
+      {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro render_field_select(field) %}
+<div class="form-group">
+    {{ field.label }}
+    <select class="form-control" id={{ field.id }} name={{ field.name }}>
+      {% for v,c in field.choices %}
+        <option value={{v}}> {{ c }}</option>
+      {% endfor %}
+    </select>
+</div>
+{% endmacro %}
