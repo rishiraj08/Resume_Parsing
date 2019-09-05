@@ -4,28 +4,29 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SKILLS</title>
   </head>
 <body>
   <br>
   <br>
   <div class="container"> 
     <div class="jumbotron">
-      <h1 class='display-4 text-primary'>Welcome</h1>
-    <br>
+      <h1 class='display-4 text-primary'>SKILLS</h1>
+    <br>    <hr class='my-1'>
   </div>
 
   <form method = "post">
     {{form.hidden_tag()}}
-    </div>
 
-    {{ render_field_radio_inline(form.selection)}}
+    <div class='form-row'>
+      <div class='form-group col-8'>
+        {{ render_field(form.skills, placeholder='R,Python')}}
+      </div>
 
-    <br>
-
-    <div>
+      <div>
         {{form.submit(class_="btn btn-primary", role="button")}}
     </div>
-  </form>
+    </form>
 </div>
 </body>
