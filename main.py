@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, flash, redirect, url_for,Mark
 from flask import request
 from forms import *
 from flask_bootstrap import Bootstrap
+from Resume_Filtering_spacy_v5_updated import *
 #from Resume_Filtering_spacy_v3_updated import extract_skill_set
 
 app = Flask(__name__)
@@ -39,20 +40,10 @@ def skillselection():
     form = Skills()
     if form.validate_on_submit():
         session['skills'] = form.skills.data
-
-        print(session['skills'])
-
-        #with open('skillset.csv','r') as Data_File:
-        #    reader = csv.reader(Data_File)
-        #    fields = next(reader)
-        #    for row in reader:
-        #        rows.append(row)
-        #    all_rows = rows
-        #    skillset = [val for x in all_rows for val in x]
-        #session['skillset'] = stocks
-
+        session['skills'] = list(session['skills'].split(","))
+        output=full_resume(inp=session['skills'])
         return redirect(url_for('final'))
-    return render_template('skills.html',form = form)
+    return render_template('output.html',form = form)
 
 
 @app.route('/final',methods=['GET','POST'])
